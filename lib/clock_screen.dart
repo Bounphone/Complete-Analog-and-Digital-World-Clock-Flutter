@@ -78,8 +78,8 @@ class ClockPageState extends State<ClockPage> {
       choice = Choice.CurrentTime;
       return null;
     }
-    Response response =
-        await get("http://worldtimeapi.org/api/timezone/$locationName");
+    Response response = await get(
+        Uri.parse("http://worldtimeapi.org/api/timezone/$locationName"));
     Map worldData = jsonDecode(response.body);
     final String worldTimeString = worldData['datetime'];
     worldTime = worldTimeString.substring(11, 16);
@@ -112,65 +112,80 @@ class ClockPageState extends State<ClockPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'World clock',
+            style: TextStyle(color: Colors.white),
+          ),
+          centerTitle: true,
+          backgroundColor: Colors.black,
+        ),
         key: _scaffoldKey,
-        backgroundColor: Color(silver),
+        backgroundColor: Colors.black,
         body: Column(
           children: <Widget>[
             SizedBox(
-              height: 10.0,
-            ),
-            TopRow(
-              title: 'WORLD CLOCK',
-              onPress: () async {
-                locationName = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return LocationList(
-                            selectedLocation: locationName,
-                          );
-                        },
-                      ),
-                    ) ??
-                    'Europe/London';
-                setLocationPref(locationName);
-              },
-            ),
-            Center(
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
-                child: Container(
-                  child: Text(
-                    "$_formattedTime",
-                    style: kTimeTextStyle,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
               height: 30.0,
             ),
-            Center(
-              child: ClockContainer(
-                child: choice == Choice.CurrentTime
-                    ? CustomPaint(
-                        painter: CurrentTimeClockHands(),
-                      )
-                    : WorldTimeClockHands(
-                        worldLocation: locationName,
-                      ),
-              ),
+            // TopRow(
+            //   title: 'World time App',
+            //   onPress: () async {
+            //     locationName = await Navigator.push(
+            //           context,
+            //           MaterialPageRoute(
+            //             builder: (context) {
+            //               return LocationList(
+            //                 selectedLocation: locationName,
+            //               );
+            //             },
+            //           ),
+            //         ) ??
+            //         'Europe/London';
+            //     setLocationPref(locationName);
+            //   },
+            // ),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 30),
+              child: SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      primary: Colors.red
+                    ),
+                      onPressed: () async{
+                        locationName = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return LocationList(
+                                selectedLocation: locationName,
+                              );
+                            },
+                          ),
+                        ) ??
+                            'Europe/London';
+                        setLocationPref(locationName);
+                      }, child: Text('ເລືອກເຂດເວລາ'))),
             ),
             SizedBox(
-              height: 50.0,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 FancyButton(
+                  onPress: () {
+                    choice = Choice.CurrentTime;
+                  },
+                  label: 'ເວລາປັດຈຸບັນ',
+                  gradient: choice == Choice.CurrentTime
+                      ? kActiveButtonGradient
+                      : kInActiveButtonGradient,
+                ),
+                FancyButton(
                   onPress: () async {
                     if (await DataConnectionChecker().hasConnection == true) {
-                      print('Has a Internet Connection');
                       choice = Choice.WorldTime;
                     } else {
                       choice = Choice.CurrentTime;
@@ -193,16 +208,39 @@ class ClockPageState extends State<ClockPage> {
                       ? kActiveButtonGradient
                       : kInActiveButtonGradient,
                 ),
-                FancyButton(
-                  onPress: () {
-                    choice = Choice.CurrentTime;
-                  },
-                  label: 'Current Time',
-                  gradient: choice == Choice.CurrentTime
-                      ? kActiveButtonGradient
-                      : kInActiveButtonGradient,
-                ),
+
               ],
+            ),
+            SizedBox(
+              height: 70,
+            ),
+            Center(
+              child: ClockContainer(
+                child: choice == Choice.CurrentTime
+                    ? CustomPaint(
+                        painter: CurrentTimeClockHands(),
+                      )
+                    : WorldTimeClockHands(
+                        worldLocation: locationName,
+                      ),
+              ),
+            ),
+            SizedBox(
+              height: 20.0,
+            ),
+            Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 25.0, horizontal: 10.0),
+                child: Container(
+                  child: Text(
+                    "$_formattedTime",
+                    style: kTimeTextStyle,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 30.0,
             ),
           ],
         ),

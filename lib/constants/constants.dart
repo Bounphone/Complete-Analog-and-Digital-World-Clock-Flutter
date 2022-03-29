@@ -12,7 +12,7 @@ const kTopRowTextStyle = TextStyle(
   fontSize: 24.0,
   fontWeight: FontWeight.bold,
   fontFamily: 'Varela',
-  color: Color(purple),
+  color: Colors.white,
 );
 
 const kSelectedTextStyle = TextStyle(
@@ -26,15 +26,15 @@ const kTimeTextStyle = TextStyle(
   fontSize: 56.0,
   fontWeight: FontWeight.bold,
   fontFamily: 'Varela',
-  color: Color(purple),
+  color: Colors.white,
 );
 
 const kActiveButtonGradient = LinearGradient(
   begin: Alignment.bottomRight,
   end: Alignment.topLeft,
   colors: <Color>[
-    Color(0xffffc03d),
-    Color(0xffffd03d),
+    Color(0xFF240b36),
+    Color(0xFFFF4B2B),
     Color(0xffffe03d),
   ],
 );
@@ -43,8 +43,8 @@ const kInActiveButtonGradient = LinearGradient(
   begin: Alignment.bottomRight,
   end: Alignment.topLeft,
   colors: <Color>[
-    Color(0xffe7eefb),
-    Color(0xfff2f5fc),
+    Color(0xff4A00E0),
+    Color(0xff8E2DE2),
   ],
 );
 

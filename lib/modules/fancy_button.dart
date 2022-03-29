@@ -29,7 +29,7 @@ class FancyButton extends StatelessWidget {
           child: Text(
             '$label',
             style: TextStyle(
-              color: Color(purple),
+              color: Colors.white,
               fontFamily: 'Varela',
               fontWeight: FontWeight.bold,
             ),

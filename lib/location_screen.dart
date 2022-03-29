@@ -14,11 +14,17 @@ class _LocationListState extends State<LocationList> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(silver),
+        backgroundColor: Colors.black,
         body: Padding(
           padding: const EdgeInsets.only(top: 50.0),
           child: Center(
-            child: getListView(),
+            child: Column(
+              children: [
+                Text('ກະລຸນາເລືອກເຂດເວລາ', style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600,color: Colors.white),),
+                Divider(height: 40, color: Colors.blue,thickness: 3,),
+                Expanded(child: getListView()),
+              ],
+            ),
           ),
         ),
       ),
