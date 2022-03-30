@@ -78,8 +78,8 @@ class ClockPageState extends State<ClockPage> {
       choice = Choice.CurrentTime;
       return null;
     }
-    Response response =
-        await get("http://worldtimeapi.org/api/timezone/$locationName");
+    Response response = await get(
+        Uri.parse("http://worldtimeapi.org/api/timezone/$locationName"));
     Map worldData = jsonDecode(response.body);
     final String worldTimeString = worldData['datetime'];
     worldTime = worldTimeString.substring(11, 16);
@@ -120,7 +120,7 @@ class ClockPageState extends State<ClockPage> {
               height: 10.0,
             ),
             TopRow(
-              title: 'WORLD CLOCK',
+              title: 'World time App',
               onPress: () async {
                 locationName = await Navigator.push(
                       context,
@@ -197,7 +197,7 @@ class ClockPageState extends State<ClockPage> {
                   onPress: () {
                     choice = Choice.CurrentTime;
                   },
-                  label: 'Current Time',
+                  label: 'ເວລາປັດຈຸບັນ',
                   gradient: choice == Choice.CurrentTime
                       ? kActiveButtonGradient
                       : kInActiveButtonGradient,

@@ -18,7 +18,13 @@ class _LocationListState extends State<LocationList> {
         body: Padding(
           padding: const EdgeInsets.only(top: 50.0),
           child: Center(
-            child: getListView(),
+            child: Column(
+              children: [
+                Text('ກະລຸນາເລືອກເຂດເວລາ', style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),),
+                Divider(height: 40, color: Colors.blue,thickness: 3,),
+                Expanded(child: getListView()),
+              ],
+            ),
           ),
         ),
       ),
